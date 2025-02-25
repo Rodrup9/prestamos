@@ -97,3 +97,52 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+🔹 1. Instalar Yarn en Ubuntu (Globalmente)
+✅ Paso 1: Agregar el repositorio de Yarn
+Ejecuta los siguientes comandos para asegurarte de que tienes el repositorio correcto:
+
+sh
+Copiar
+Editar
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+✅ Paso 2: Actualizar el sistema e instalar Yarn
+Ahora actualiza los paquetes e instala Yarn:
+
+sh
+Copiar
+Editar
+sudo apt update && sudo apt install yarn -y
+✅ Paso 3: Verificar la instalación
+Comprueba que Yarn se instaló correctamente con:
+
+sh
+Copiar
+Editar
+yarn --version
+Si ves un número de versión, significa que Yarn está instalado correctamente. 🎉
+
+🔹 2. Instalar NestJS CLI de manera global
+Para instalar el CLI de NestJS globalmente, usa Yarn o NPM:
+
+sh
+Copiar
+Editar
+yarn global add @nestjs/cli
+O si prefieres usar NPM:
+
+sh
+Copiar
+Editar
+npm install -g @nestjs/cli
+✅ Verificar que NestJS se instaló correctamente
+Ejecuta el siguiente comando:
+
+sh
+Copiar
+Editar
+nest --version
+Si ves la versión de NestJS, significa que todo está funcionando bien. 🎉
+
+✅ ¡Listo! Ahora puedes usar Yarn y NestJS globalmente en tu Ubuntu.
