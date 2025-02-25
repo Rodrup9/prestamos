@@ -24,6 +24,9 @@ export class Usuario {
     @ManyToMany(() => Rol, (rol) => rol.id)
     roles: Rol[]
 
+    @Column({ type: 'bit', default: 1 })
+    activo: boolean;
+
     @UpdateDateColumn({ type: 'datetime2' })
     actualizado: Date;
 }

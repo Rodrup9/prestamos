@@ -35,7 +35,7 @@ async create(createUsuarioDto: CreateUsuarioDto) {
 
   let roles: Rol[] = [];
   if (createUsuarioDto.roles && createUsuarioDto.roles.length > 0) {
-    roles = await this.rolRepository.findBy({
+    roles = await this.rolRepository.findBy({ //Cambiar esto a rol
       id: In(createUsuarioDto.roles)
     });
   } 
