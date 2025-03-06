@@ -1,7 +1,8 @@
 import { Direccion } from "src/direccion/entities/direccion.entity";
 import { Usuario } from "src/usuario/entities/usuario.entity";
-import { Column, CreateDateColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
+@Entity()
 export class Cliente {
     
     @PrimaryGeneratedColumn()
@@ -31,10 +32,11 @@ export class Cliente {
     @Column({ type: 'date', nullable: true })
     fecha_nacimiento: Date;
 
-    @OneToOne(() => Direccion, (direccion) => direccion.id)
+    @OneToOne(() => Direccion, { cascade: true }) // Opcional: cascade permite guardar automáticamente la dirección
+    @JoinColumn()
     direccion: Direccion;
 
-    @OneToOne(() => Usuario, (usuario) => usuario.id)
+    @ManyToOne(() => Usuario, (usuario) => usuario.id)
     usuario_asignado: Usuario;
 
     @ManyToOne(() => Usuario, (usuario) => usuario.id)

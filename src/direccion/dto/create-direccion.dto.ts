@@ -1,4 +1,5 @@
-import { IsInt, IsPositive, IsString, Min } from "class-validator";
+import { Type } from "class-transformer";
+import { IsInt, IsPositive, IsString, Min, ValidateNested } from "class-validator";
 
 export class CreateDireccionDto {
 
@@ -8,18 +9,22 @@ export class CreateDireccionDto {
 
     @IsString()
     @Min(5)
-    codigoPostal: string;
+    codigo_postal: string;
 
     @IsString()
     @Min(3)
-    numeroInterior: string;
+    numero_interior?: string;
 
     @IsString()
     @Min(3)
-    numeroExterior?: string;
-
+    numero_exterior: string;
+    
     @IsInt()
     @IsPositive()
-    idLocalidad: number;
+    localidad: number;
+
+    // @ValidateNested()
+    // @Type(() => )
+    // idLocalidad: ;
 
 }

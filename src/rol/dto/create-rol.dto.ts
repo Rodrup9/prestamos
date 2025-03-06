@@ -1,11 +1,12 @@
-import { IsInt, IsPositive, IsString, Min, MinLength } from "class-validator";
+import { IsArray, IsInt, IsPositive, IsString, Min, MinLength } from "class-validator";
 
 export class CreateRolDto {
     @IsString()
     @MinLength(3)    
     nombre: string;
 
-    @IsInt()
-    @IsPositive()
-    usuario_creador: number;
+    @IsArray()
+    @IsInt({ each: true })
+    @IsPositive({ each: true })
+    permisos?: number[];
 }

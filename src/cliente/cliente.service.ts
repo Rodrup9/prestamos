@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
 import { Cliente } from './entities/cliente.entity';
@@ -15,23 +15,61 @@ export class ClienteService {
       private direccionService: DireccionService,
   ) {}
 
-  create(createClienteDto: CreateClienteDto) {
-    //Crear direccion primero, luego crear el cliente
-    return 'This action adds a new cliente';
+  async create(createClienteDto: CreateClienteDto, idUsuarioCreador: number) {
+    
+    const usuarioCreador = await this.usuarioService.findOne(idUsuarioCreador);
+    
+    const usuarioAsignado = await this.usuarioService.findOne(createClienteDto.usuario_asignado);
+
+    const nuevaDireccion = await this.direccionService.createCascade(createClienteDto.direccion, usuarioCreador);
+
+    const nuevoCliente = this.clienteRepository.create({
+      ...createClienteDto,
+      usuario_creador: usuarioCreador,
+      usuario_asignado: usuarioAsignado,
+      direccion: nuevaDireccion
+    });
+    return this.clienteRepository.save(nuevoCliente);
+
   }
 
   findAll() {
-    return `This action returns all cliente`;
+    return this.clienteRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cliente`;
+  async findOne(id: number) {
+    const cliente = await this.clienteRepository.findOne({
+      where: { id },
+      relations: ['direccion', 'usuario_asignado'],
+    });  
+
+    if (!cliente)
+      throw new NotFoundException(`Cliente con ID ${id} no encontrado`);
+    
+    return cliente;
+  }
+
+  async update(id: number, updateClienteDto: UpdateClienteDto) {
+    const cliente = await this.findOne(id);
+
+    if (updateClienteDto.usuario_asignado) {
+      const usuarioAsignado = await this.usuarioService.findOne(updateClienteDto.usuario_asignado);
+      cliente.usuario_asignado = usuarioAsignado;
+    }
+    const { direccion, ...clienteData } = updateClienteDto;
+
+    // const clienteActualizado = await this.clienteRepository.save({
+    //   ...cliente,
+    //   ...clienteData,
+    // })
+
+    // if (direccion && cliente.direccion) {
+    //   const direccionActualizada = await this.direccionService.updateCascade(cliente.direccion, direccion);
+    //   return { ...clienteActualizado, direccion: direccionActualizada };
+    // }
+    // return clienteActualizado;
   }
 /*
-  update(id: number, updateClienteDto: UpdateClienteDto) {
-    return `This action updates a #${id} cliente`;
-  }
-
   remove(id: number) {
     return `This action removes a #${id} cliente`;
   }*/

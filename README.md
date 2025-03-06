@@ -146,3 +146,5 @@ nest --version
 Si ves la versión de NestJS, significa que todo está funcionando bien. 🎉
 
 ✅ ¡Listo! Ahora puedes usar Yarn y NestJS globalmente en tu Ubuntu.
+
+1. Instala yarn globalmente

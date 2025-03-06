@@ -1,4 +1,6 @@
-import { IsDate, IsInt, IsPositive, IsString, Min } from "class-validator";
+import { Type } from "class-transformer";
+import { IsDate, IsInt, IsPositive, IsString, Min, ValidateNested } from "class-validator";
+import { CreateDireccionDto } from "src/direccion/dto/create-direccion.dto";
 
 export class CreateClienteDto {
 
@@ -8,34 +10,38 @@ export class CreateClienteDto {
 
     @IsString()
     @Min(3)
-    apellidoPaterno: string;
+    apellido_paterno: string;
 
     @IsString()
     @Min(3)
-    apellidoMaterno?: string;
+    apellido_materno?: string;
 
     @IsString()
     @Min(7)
-    rfc: string;
+    rfc?: string;
 
     @IsString()
-    ine: string;
+    ine?: string;
 
     @IsString()
-    compDomicilio: string;
+    comp_domicilio?: string;
 
     @IsString()
     @Min(13)
-    curp: string;
+    curp?: string;
 
     @IsDate()
-    fechaNacimiento: Date;
+    fecha_nacimiento: Date;
 
     @IsInt()
     @IsPositive()
-    idUsuarioAsignado: number;
+    usuario_asignado: number;
 
     @IsInt()
     @IsPositive()
-    idDireccion: number;
+    usuario_creador: number;
+
+    @ValidateNested()
+    @Type(() => CreateDireccionDto)
+    direccion?: CreateDireccionDto;
 }

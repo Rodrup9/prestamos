@@ -7,28 +7,28 @@ import { UpdateDireccionDto } from './dto/update-direccion.dto';
 export class DireccionController {
   constructor(private readonly direccionService: DireccionService) {}
 
-  @Post()
-  create(@Body() createDireccionDto: CreateDireccionDto) {
-    return this.direccionService.create(createDireccionDto);
-  }
+  // @Post()
+  // create(@Body() createDireccionDto: CreateDireccionDto) {
+  //   return this.direccionService.create(createDireccionDto);
+  // }
 
   @Get()
   findAll() {
     return this.direccionService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.direccionService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.direccionService.findOne(+id);
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDireccionDto: UpdateDireccionDto) {
-    return this.direccionService.update(+id, updateDireccionDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateDireccionDto: UpdateDireccionDto) {
+  //   return this.direccionService.update(+id, updateDireccionDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.direccionService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.direccionService.remove(+id);
+  // }
 }

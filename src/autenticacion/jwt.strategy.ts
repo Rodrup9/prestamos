@@ -13,6 +13,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   ) {    
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([(request: Request) => {
+        console.log(request.cookies);
+        
         return request?.cookies?.access_token;
       }]),    
       ignoreExpiration: false,
@@ -21,9 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   }
 
-  async validate(payload: any) {
-    console.log(payload);
-    
+  async validate(payload: any) {    
     const usuario = this.usuarioService.findOne(payload.id);
     if (!usuario) {
       throw new UnauthorizedException('Token inválido');

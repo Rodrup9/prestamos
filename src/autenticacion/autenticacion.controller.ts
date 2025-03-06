@@ -11,8 +11,7 @@ export class AutenticacionController {
 
   @Post('login')
   async login(@Body() loginUsuarioDto: LoginUsuarioDto, @Res() res: Response) {
-    const usuario = await this.autenticacionService.login(loginUsuarioDto);
-
+    const usuario = await this.autenticacionService.login(loginUsuarioDto);    
     res.cookie('access_token', usuario.access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

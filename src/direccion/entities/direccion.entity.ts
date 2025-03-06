@@ -1,6 +1,9 @@
+import { Cliente } from "src/cliente/entities/cliente.entity";
+import { Localidad } from "src/localidad/entities/localidad.entity";
 import { Usuario } from "src/usuario/entities/usuario.entity";
-import { Column, CreateDateColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
+@Entity()
 export class Direccion {
     @PrimaryGeneratedColumn()
     id: number;
@@ -17,6 +20,9 @@ export class Direccion {
     @Column({type: 'varchar', length: 10})
     numero_interior: string;
 
+    @OneToOne(() => Cliente, (cliente) => cliente.direccion)
+    cliente: Cliente;
+
     @ManyToOne(() => Usuario, (usuario) => usuario.id)
     usuario_creador: Usuario;
 
@@ -29,6 +35,6 @@ export class Direccion {
     @UpdateDateColumn({ type: 'datetime2' })
     actualizado: Date;
 
-    // @ManyToOne()
-    // id_localidad: Localidad;
+    @ManyToOne(() => Localidad, (localidad) => localidad.id)
+    localidad: Localidad;
 }

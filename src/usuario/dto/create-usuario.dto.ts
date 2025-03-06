@@ -14,10 +14,6 @@ export class CreateUsuarioDto {
     @IsEmail()
     correo: string;
 
-    @IsInt()
-    @IsPositive()
-    usuario_creador?: number;
-
     @IsArray()
     roles?: number[];
 }
