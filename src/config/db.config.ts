@@ -1,4 +1,6 @@
 import { DataSource } from 'typeorm';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 export const databaseProviders = [
   {
@@ -6,11 +8,11 @@ export const databaseProviders = [
     useFactory: async () => {
       const dataSource = new DataSource({
         type: 'mssql',
-        host: 'localhost',
-        port: 1433,
-        username: 'nestjs_user',
-        password: 'ivansinn',
-        database: 'prestamos',
+        host: process.env.HOST_DB,
+        port: +process.env.PORT_DB,
+        username: process.env.USERNAME_DB,
+        password: process.env.PASSWORD_DB,
+        database: process.env.NAME_DB,
         entities: [
             __dirname + '/../**/*.entity{.ts,.js}',
         ],
