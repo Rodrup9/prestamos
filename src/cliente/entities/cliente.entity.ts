@@ -1,6 +1,7 @@
 import { Direccion } from "src/direccion/entities/direccion.entity";
+import { Prestamo } from "src/prestamo/entities/prestamo.entity";
 import { Usuario } from "src/usuario/entities/usuario.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Cliente {
@@ -36,11 +37,14 @@ export class Cliente {
     @JoinColumn()
     direccion: Direccion;
 
-    @ManyToOne(() => Usuario, (usuario) => usuario.id)
+    @ManyToOne(() => Usuario, (usuario) => usuario.clientes_asignados)
     usuario_asignado: Usuario;
 
-    @ManyToOne(() => Usuario, (usuario) => usuario.id)
-    usuario_creador: Usuario;
+    @OneToMany(() => Prestamo, (prestamo) => prestamo.cliente)
+    prestamos: Prestamo[];
+
+    // @ManyToOne(() => Usuario, (usuario) => usuario.id)
+    // usuario_creador: Usuario;
 
     @CreateDateColumn({ type: 'datetime2', nullable: true })
     creado: Date;

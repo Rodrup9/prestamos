@@ -14,8 +14,8 @@ export class Estado {
         @JoinColumn()
         municipio: Municipio;
     
-        @ManyToOne(() => Usuario, (usuario) => usuario.id)
-        usuario_creador: Usuario;
+        // @ManyToOne(() => Usuario, (usuario) => usuario.id)
+        // usuario_creador: Usuario;
     
         @CreateDateColumn({ type: 'datetime2', nullable: true })
         creado: Date;

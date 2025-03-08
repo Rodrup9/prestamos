@@ -23,8 +23,8 @@ export class Direccion {
     @OneToOne(() => Cliente, (cliente) => cliente.direccion)
     cliente: Cliente;
 
-    @ManyToOne(() => Usuario, (usuario) => usuario.id)
-    usuario_creador: Usuario;
+    // @ManyToOne(() => Usuario, (usuario) => usuario.id)
+    // usuario_creador: Usuario;
 
     @CreateDateColumn({ type: 'datetime2', nullable: true })
     creado: Date;

@@ -37,7 +37,7 @@ async create(createUsuarioDto: CreateUsuarioDto, idUsuarioCreador: number) {
   const nuevoUsuario = this.usuarioRepository.create({
     ...createUsuarioDto,
     clave: hashedPassword,
-    usuario_creador: usuarioCreador,
+    // usuario_creador: usuarioCreador,
     roles
   });
   return this.usuarioRepository.save(nuevoUsuario);

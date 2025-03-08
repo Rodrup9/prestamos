@@ -21,7 +21,7 @@ export class PermisoService {
 
     const nuevoPermiso = this.permisoRepository.create({
       ...createPermisoDto,
-      usuario_creador: usuarioCreador,
+      // usuario_creador: usuarioCreador,
     });
 
     return this.permisoRepository.save(nuevoPermiso);

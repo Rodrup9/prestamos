@@ -25,7 +25,7 @@ export class ClienteService {
 
     const nuevoCliente = this.clienteRepository.create({
       ...createClienteDto,
-      usuario_creador: usuarioCreador,
+      // usuario_creador: usuarioCreador,
       usuario_asignado: usuarioAsignado,
       direccion: nuevaDireccion
     });

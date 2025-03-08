@@ -22,7 +22,7 @@ export class DireccionService {
 
     const nuevaDireccion = this.direccionRepository.create({
       ...createDireccionDto,
-      usuario_creador: usuarioCreador,
+      // usuario_creador: usuarioCreador,
       localidad,
     });
 

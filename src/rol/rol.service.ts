@@ -30,7 +30,7 @@ export class RolService {
 
     const nuevoRol = this.rolRepository.create({
       ...createRolDto,
-      usuario_creador: usuarioCreador,
+      // usuario_creador: usuarioCreador,
       permisos,
     });
 
