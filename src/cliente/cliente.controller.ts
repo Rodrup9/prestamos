@@ -9,7 +9,7 @@ export class ClienteController {
   constructor(private readonly clienteService: ClienteService) {}
 
   @Post('crear')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createClienteDto: CreateClienteDto, @Request() req) {
     return this.clienteService.create(createClienteDto, req.user.id);
   }
@@ -20,13 +20,13 @@ export class ClienteController {
   }
 
   @Post('actualizar/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string,  @Body() updateClienteDto: UpdateClienteDto) {
     return this.clienteService.update(+id, updateClienteDto);
   }
 
   @Get(':id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.clienteService.findOne(+id);
   }

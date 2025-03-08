@@ -9,7 +9,7 @@ export class LocalidadController {
   constructor(private readonly localidadService: LocalidadService) {}
 
   @Post('crear')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createLocalidadDto: CreateLocalidadDto, @Request() req) {
     return this.localidadService.create(createLocalidadDto, req.user.id);
   }

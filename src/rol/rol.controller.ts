@@ -9,25 +9,25 @@ export class RolController {
   constructor(private readonly rolService: RolService) {}
 
   @Post('crear')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createRolDto: CreateRolDto, @Request() req) {
     return this.rolService.create(createRolDto, req.user.id);
   }
 
   @Get()
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.rolService.findAll();
   }
 
   @Get(':id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.rolService.findOne(+id);
   }
 
   @Patch(':id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateRolDto: UpdateRolDto) {
     return this.rolService.update(+id, updateRolDto);
   }

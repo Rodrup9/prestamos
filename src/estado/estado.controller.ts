@@ -9,7 +9,7 @@ export class EstadoController {
   constructor(private readonly estadoService: EstadoService) {}
 
   @Post('crear')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createEstadoDto: CreateEstadoDto, @Request() req) {
     return this.estadoService.create(createEstadoDto, req.user.id);
   }

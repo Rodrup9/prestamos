@@ -9,7 +9,7 @@ export class MunicipioController {
   constructor(private readonly municipioService: MunicipioService) {}
 
   @Post('crear')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createMunicipioDto: CreateMunicipioDto, @Request() req) {
     return this.municipioService.create(createMunicipioDto, req.user.id);
   }
