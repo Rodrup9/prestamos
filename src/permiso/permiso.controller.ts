@@ -9,13 +9,13 @@ export class PermisoController {
   constructor(private readonly permisoService: PermisoService) {}
 
   @Post('crear')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   create(@Body() createPermisoDto: CreatePermisoDto, @Request() req) {
     return this.permisoService.create(createPermisoDto, req.user.id);
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   findAll() {
     return this.permisoService.findAll();
   }
