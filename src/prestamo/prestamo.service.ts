@@ -5,6 +5,9 @@ import { Repository } from 'typeorm';
 import { Prestamo } from './entities/prestamo.entity';
 import { UsuarioService } from '../usuario/usuario.service';
 import { ClienteService } from 'src/cliente/cliente.service';
+import { reduce } from 'rxjs';
+import { abonoProviders } from '../abono/abono.providers';
+import { Abono } from 'src/abono/entities/abono.entity';
 
 @Injectable()
 export class PrestamoService {
@@ -36,9 +39,24 @@ export class PrestamoService {
   }
 
   async findOne(id: number) {
-    return await this.prestamoRepository.findOne({
+    const prestamo = await this.prestamoRepository.findOne({
       where: { id },
+      relations: {
+        prestamista: true,
+        cliente: true,
+        abonos: true,
+      }
     });
+
+    const abonos: Abono[] = prestamo.abonos;
+
+    const abonado = abonos.reduce((acc, cur) => acc + cur?.abono, 0);
+
+    return {
+      ...prestamo,
+      deuda: (prestamo?.monto - abonado),
+      abonado,
+    }
   }
 
   update(id: number, updatePrestamoDto: UpdatePrestamoDto) {
