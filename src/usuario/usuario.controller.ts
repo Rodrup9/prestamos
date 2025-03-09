@@ -26,4 +26,10 @@ export class UsuarioController {
     return this.usuarioService.findOne(+id);
   }
 
+  @Post('actualizar/:id')
+  @UseGuards(JwtAuthGuard)
+  update(@Param('id') id:string, @Body() updateUsuarioDto: UpdateUsuarioDto, @Request() req) {
+    return this.usuarioService.update(+id, updateUsuarioDto, req.user.id);
+  }
+
 }

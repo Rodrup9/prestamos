@@ -8,6 +8,8 @@ import { ClienteService } from 'src/cliente/cliente.service';
 import { reduce } from 'rxjs';
 import { abonoProviders } from '../abono/abono.providers';
 import { Abono } from 'src/abono/entities/abono.entity';
+import { Usuario } from 'src/usuario/entities/usuario.entity';
+import { Cliente } from 'src/cliente/entities/cliente.entity';
 
 @Injectable()
 export class PrestamoService {
@@ -21,11 +23,11 @@ export class PrestamoService {
   ) {}
 
   async create(createPrestamoDto: CreatePrestamoDto, idUsuarioCreador: number) {
-    const prestamista = await this.usuarioService.findOne(createPrestamoDto?.prestamista);
+    const prestamista: Usuario = await this.usuarioService.findOne(createPrestamoDto?.prestamista);
 
-    const cliente = await this.clienteService.findOne(createPrestamoDto?.cliente);
+    const cliente: Cliente = await this.clienteService.findOne(createPrestamoDto?.cliente);
 
-    const nuevoPrestamo = this.prestamoRepository.create({
+    const nuevoPrestamo: Prestamo = this.prestamoRepository.create({
       ...createPrestamoDto,
       cliente,
       prestamista
@@ -39,7 +41,7 @@ export class PrestamoService {
   }
 
   async findOne(id: number) {
-    const prestamo = await this.prestamoRepository.findOne({
+    const prestamo: Prestamo = await this.prestamoRepository.findOne({
       where: { id },
       relations: {
         prestamista: true,
@@ -50,7 +52,7 @@ export class PrestamoService {
 
     const abonos: Abono[] = prestamo.abonos;
 
-    const abonado = abonos.reduce((acc, cur) => acc + cur?.abono, 0);
+    const abonado: number = abonos.reduce((acc, cur) => acc + cur?.abono, 0);
 
     return {
       ...prestamo,
