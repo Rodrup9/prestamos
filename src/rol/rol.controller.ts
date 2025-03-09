@@ -14,13 +14,13 @@ export class RolController {
     return this.rolService.create(createRolDto, req.user.id);
   }
 
-  @Get()
+  @Get('obtener-listado')
   @UseGuards(JwtAuthGuard)
   findAll() {
     return this.rolService.findAll();
   }
 
-  @Get(':id')
+  @Get('obtener/:id')
   @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.rolService.findOne(+id);

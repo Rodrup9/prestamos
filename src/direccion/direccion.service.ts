@@ -33,8 +33,10 @@ export class DireccionService {
     return this.direccionRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} direccion`;
+  async findOne(id: number) {
+    return await this.direccionRepository.findOne({
+      where: { id }
+    });
   }
 
   async updateCascade(direccionOld: Direccion, updateDireccionDto: UpdateDireccionDto) {

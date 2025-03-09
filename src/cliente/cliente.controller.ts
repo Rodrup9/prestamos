@@ -14,7 +14,8 @@ export class ClienteController {
     return this.clienteService.create(createClienteDto, req.user.id);
   }
 
-  @Get()
+  @Get('obtener-listado')
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.clienteService.findAll();
   }
@@ -25,7 +26,7 @@ export class ClienteController {
     return this.clienteService.update(+id, updateClienteDto);
   }
 
-  @Get(':id')
+  @Get('obtener/:id')
   @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.clienteService.findOne(+id);

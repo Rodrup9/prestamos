@@ -38,7 +38,9 @@ export class PermisoService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} permiso`;
+    return this.permisoRepository.findOne({
+      where: { id }
+    });
   }
 
   update(id: number, updatePermisoDto: UpdatePermisoDto) {

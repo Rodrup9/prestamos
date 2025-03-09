@@ -8,11 +8,8 @@ export class MetodoPago {
             @PrimaryGeneratedColumn()
             id: number;
         
-            @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
-            abono: number;
-    
-            @Column({ type: 'date', nullable: false })
-            fecha_abono: Date;
+            @Column({ type: 'varchar', length: 20, nullable: false })
+            nombre: string;
     
             // @ManyToOne(() => Usuario, (usuario) => usuario.id)
             // usuario_creador: Usuario;

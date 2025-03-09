@@ -15,13 +15,13 @@ export class UsuarioController {
     return this.usuarioService.create(createUsuarioDto, req.user.id);
   }
 
-  @Get('Admin')
+  @Get('obtener-listado')
   @UseGuards(JwtAuthGuard)
   findAll() {
     return this.usuarioService.findAll();
   }
 
-  @Get(':id')
+  @Get('obtener/:id')
   findOne(@Param('id') id: string) {
     return this.usuarioService.findOne(+id);
   }

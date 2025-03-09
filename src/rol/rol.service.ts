@@ -41,8 +41,10 @@ export class RolService {
     return this.rolRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} rol`;
+  async findOne(id: number) {
+    return await this.rolRepository.findOne({
+      where: { id }
+    });
   }
 
   async findByArrayIds(ids: number[]) {

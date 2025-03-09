@@ -14,22 +14,26 @@ export class EstadoController {
     return this.estadoService.create(createEstadoDto, req.user.id);
   }
 
-  @Get()
+  @Get('obtener-listado')
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.estadoService.findAll();
   }
 
-  @Get(':id')
+  @Get('obtener/:id')
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.estadoService.findOne(+id);
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateEstadoDto: UpdateEstadoDto) {
     return this.estadoService.update(+id, updateEstadoDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.estadoService.remove(+id);
   }

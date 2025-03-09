@@ -32,11 +32,13 @@ export class PrestamoService {
   }
 
   findAll() {
-    return `This action returns all prestamo`;
+    return this.prestamoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} prestamo`;
+  async findOne(id: number) {
+    return await this.prestamoRepository.findOne({
+      where: { id },
+    });
   }
 
   update(id: number, updatePrestamoDto: UpdatePrestamoDto) {

@@ -14,22 +14,26 @@ export class PrestamoController {
     return this.prestamoService.create(createPrestamoDto, req.user.id);
   }
 
-  @Get()
+  @Get('obtener-listado')
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.prestamoService.findAll();
   }
 
-  @Get(':id')
+  @Get('obtener/:id')
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.prestamoService.findOne(+id);
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updatePrestamoDto: UpdatePrestamoDto) {
     return this.prestamoService.update(+id, updatePrestamoDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.prestamoService.remove(+id);
   }
