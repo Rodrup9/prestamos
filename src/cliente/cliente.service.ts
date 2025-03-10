@@ -82,6 +82,11 @@ export class ClienteService {
       usuarioAsignado = nuevoUsuario;
     }
 
+    // interface clienteInterface {
+    //   nombre?: string;
+
+    // }
+
     const clienteUpdate: any = {
       ...cliente,
       ...updateClienteDto,
