@@ -22,8 +22,8 @@ export class ClienteController {
 
   @Post('actualizar/:id')
   @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: string,  @Body() updateClienteDto: UpdateClienteDto) {
-    return this.clienteService.update(+id, updateClienteDto);
+  update(@Param('id') id: string,  @Body() updateClienteDto: UpdateClienteDto, @Request() req) {
+    return this.clienteService.update(+id, updateClienteDto, req.user.id);
   }
 
   @Get('obtener/:id')

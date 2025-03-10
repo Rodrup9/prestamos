@@ -5,6 +5,8 @@ import { Cliente } from './entities/cliente.entity';
 import { Repository } from 'typeorm';
 import { UsuarioService } from 'src/usuario/usuario.service';
 import { DireccionService } from 'src/direccion/direccion.service';
+import { Usuario } from 'src/usuario/entities/usuario.entity';
+import { Direccion } from 'src/direccion/entities/direccion.entity';
 
 @Injectable()
 export class ClienteService {
@@ -37,37 +39,67 @@ export class ClienteService {
     return this.clienteRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<Cliente> {
+    
     const cliente = await this.clienteRepository.findOne({
       where: { id },
-      relations: ['direccion', 'usuario_asignado'],
+      relations: {
+        direccion: true,
+        usuario_asignado: true,
+      },
     });  
-
+    
     if (!cliente)
       throw new NotFoundException(`Cliente con ID ${id} no encontrado`);
     
     return cliente;
   }
 
-  async update(id: number, updateClienteDto: UpdateClienteDto) {
-    const cliente = await this.findOne(id);
+  private async findOneInfo(id: number): Promise<Cliente> {
+    
+    const cliente = await this.clienteRepository.findOne({
+      where: { id },
+      relations: {
+        direccion: {
+          localidad: true
+        },
+        usuario_asignado: true,
+      },
+    });  
+    
+    if (!cliente)
+      throw new NotFoundException(`Cliente con ID ${id} no encontrado`);
+    
+    return cliente;
+  }
 
-    if (updateClienteDto.usuario_asignado) {
-      const usuarioAsignado = await this.usuarioService.findOne(updateClienteDto.usuario_asignado);
-      cliente.usuario_asignado = usuarioAsignado;
+  async update(id: number, updateClienteDto: UpdateClienteDto, idUsuario: number): Promise<Cliente> {
+    const cliente = await this.findOneInfo(id);
+
+    let usuarioAsignado: Usuario = cliente.usuario_asignado;
+    if (updateClienteDto?.usuario_asignado) {
+      const nuevoUsuario = await this.usuarioService.findOne(updateClienteDto.usuario_asignado);
+      usuarioAsignado = nuevoUsuario;
     }
-    const { direccion, ...clienteData } = updateClienteDto;
 
-    // const clienteActualizado = await this.clienteRepository.save({
-    //   ...cliente,
-    //   ...clienteData,
-    // })
+    const clienteUpdate: any = {
+      ...cliente,
+      ...updateClienteDto,
+      usuario_asignado: usuarioAsignado,
+    }
 
-    // if (direccion && cliente.direccion) {
-    //   const direccionActualizada = await this.direccionService.updateCascade(cliente.direccion, direccion);
-    //   return { ...clienteActualizado, direccion: direccionActualizada };
-    // }
-    // return clienteActualizado;
+    if (!clienteUpdate?.nombre || !clienteUpdate?.apellido_paterno || !clienteUpdate?.curp || !clienteUpdate?.fecha_nacimiento)
+      throw new NotFoundException('Nombre, apellido parteo, curp, fecha nacimiento no pueden estar vacios');
+
+    let direccion: Direccion = cliente?.direccion;
+    if (updateClienteDto?.direccion) {
+      direccion = await this.direccionService.updateCascade(cliente.direccion, updateClienteDto.direccion);
+    }
+
+    return this.clienteRepository.save({
+      ...clienteUpdate,
+      direccion,
+    });
   }
 /*
   remove(id: number) {

@@ -108,7 +108,7 @@ async update(id: number, updateUsuarioDto: UpdateUsuarioDto, idUsuario: number):
     roles
   }
 
-  if (usuarioUpdate?.nombre === '' || usuarioUpdate?.clave === '' || updateUsuarioDto?.correo === '')
+  if (usuarioUpdate?.nombre || usuarioUpdate?.clave || updateUsuarioDto?.correo)
     throw new NotFoundException('Nombre, clave y correo no pueden estar vacios');
   
   return this.usuarioRepository.save(usuarioUpdate);

@@ -18,13 +18,13 @@ export class Cliente {
     @Column({type: 'varchar', length: 50})
     apellido_materno: string;
 
-    @Column({type: 'varchar', length: 50, nullable: true})
+    @Column({type: 'varchar', length: 50,})
     rfc: string;
 
-    @Column({type: 'varchar', length: 255, nullable: true})
+    @Column({type: 'varchar', length: 255})
     ine: string;
 
-    @Column({type: 'varchar', length: 255, nullable: true})
+    @Column({type: 'varchar', length: 255})
     comp_domicilio: string;
 
     @Column({type: 'varchar', length: 255, nullable: true})
