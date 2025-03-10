@@ -14,27 +14,32 @@ export class LocalidadController {
     return this.localidadService.create(createLocalidadDto, req.user.id);
   }
 
-  @Get()
+  @Get('obtener-listado')
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.localidadService.findAll();
   }
 
-  @Get(':id')
+  @Get('obtener/:id')
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.localidadService.findOne(+id);
   }
 
-  @Get('por-municipio/:id')
+  @Get('obtener-listado/municipio/:id')
+  @UseGuards(JwtAuthGuard)
   findByMunicipio(@Param('id') id: string) {
     return this.localidadService.findByMunicipio(+id);
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateLocalidadDto: UpdateLocalidadDto) {
     return this.localidadService.update(+id, updateLocalidadDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.localidadService.remove(+id);
   }

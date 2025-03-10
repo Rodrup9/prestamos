@@ -1,4 +1,5 @@
 import { Cliente } from 'src/cliente/entities/cliente.entity';
+import { Prestamo } from 'src/prestamo/entities/prestamo.entity';
 import { Rol } from 'src/rol/entities/rol.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn, ManyToMany, OneToOne } from 'typeorm';
 
@@ -17,11 +18,13 @@ export class Usuario {
     correo: string;
 
     @OneToMany(() => Cliente, (cliente) => cliente.usuario_asignado)
-    @JoinColumn()
     clientes_asignados: Cliente[];
 
-    @ManyToOne(() => Usuario, (usuario) => usuario.id)
-    usuario_creador: Usuario;
+    @OneToMany(() => Prestamo, (prestamo) => prestamo.prestamista)
+    prestamos: Prestamo[];
+
+    // @ManyToOne(() => Usuario, (usuario) => usuario.clientes_asignados)
+    // usuario_creador: Usuario;
 
     @CreateDateColumn({ type: 'datetime2', nullable: true })
     creado: Date;

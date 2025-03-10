@@ -14,18 +14,19 @@ export class ClienteController {
     return this.clienteService.create(createClienteDto, req.user.id);
   }
 
-  @Get()
+  @Get('obtener-listado')
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.clienteService.findAll();
   }
 
   @Post('actualizar/:id')
   @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: string,  @Body() updateClienteDto: UpdateClienteDto) {
-    return this.clienteService.update(+id, updateClienteDto);
+  update(@Param('id') id: string,  @Body() updateClienteDto: UpdateClienteDto, @Request() req) {
+    return this.clienteService.update(+id, updateClienteDto, req.user.id);
   }
 
-  @Get(':id')
+  @Get('obtener/:id')
   @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.clienteService.findOne(+id);

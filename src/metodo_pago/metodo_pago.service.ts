@@ -1,19 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CreateMetodoPagoDto } from './dto/create-metodo_pago.dto';
 import { UpdateMetodoPagoDto } from './dto/update-metodo_pago.dto';
+import { Repository } from 'typeorm';
+import { MetodoPago } from './entities/metodo_pago.entity';
+import { UsuarioService } from 'src/usuario/usuario.service';
+import { formatFirstUpperCaseEvery } from 'src/helpers/formatFirstUpperCaseEvery';
 
 @Injectable()
 export class MetodoPagoService {
-  create(createMetodoPagoDto: CreateMetodoPagoDto) {
-    return 'This action adds a new metodoPago';
+  constructor(
+    @Inject('METODO_PAGO_REPOSITORY')
+    private metodoPagoRepository: Repository<MetodoPago>,
+    @Inject(forwardRef(() => UsuarioService))
+    private usuarioService: UsuarioService,
+  ) {}
+
+  async create(createMetodoPagoDto: CreateMetodoPagoDto, idUsuario: number) {
+    const usuarioCreador = await this.usuarioService.findOne(idUsuario);
+
+    createMetodoPagoDto.nombre = formatFirstUpperCaseEvery(createMetodoPagoDto?.nombre);
+
+    const nuevoMetodoPago = this.metodoPagoRepository.create({
+      ...createMetodoPagoDto
+    });
+
+    return this.metodoPagoRepository.save(nuevoMetodoPago);
   }
 
   findAll() {
-    return `This action returns all metodoPago`;
+    return this.metodoPagoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} metodoPago`;
+  async findOne(id: number) {
+    return await this.metodoPagoRepository.findOne({
+      where: { id }
+    });
   }
 
   update(id: number, updateMetodoPagoDto: UpdateMetodoPagoDto) {

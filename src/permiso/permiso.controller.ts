@@ -14,23 +14,26 @@ export class PermisoController {
     return this.permisoService.create(createPermisoDto, req.user.id);
   }
 
-  @Get()
+  @Get('obtener-listado')
   @UseGuards(JwtAuthGuard)
   findAll() {
     return this.permisoService.findAll();
   }
 
-  @Get(':id')
+  @Get('obtener/:id')
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.permisoService.findOne(+id);
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updatePermisoDto: UpdatePermisoDto) {
     return this.permisoService.update(+id, updatePermisoDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.permisoService.remove(+id);
   }

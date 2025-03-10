@@ -21,7 +21,7 @@ export class EstadoService {
     const usuarioCreador = await this.usuarioService.findOne(idUsuarioCreador);
     const nuevoEstado = this.estadoRepository.create({
       ...createEstadoDto,
-      usuario_creador: usuarioCreador,
+      // usuario_creador: usuarioCreador,
     });
     return this.estadoRepository.save(nuevoEstado);
   }

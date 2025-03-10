@@ -5,6 +5,7 @@ import { UsuarioService } from '../usuario/usuario.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { LoginUsuarioDto } from './dto/login-usuario.dto';
+import { Usuario } from 'src/usuario/entities/usuario.entity';
 
 @Injectable()
 export class AutenticacionService {
@@ -14,7 +15,7 @@ export class AutenticacionService {
   ) {}
 
   async login(loginUsuarioDto: LoginUsuarioDto) {
-    const usuario = await this.usuarioService.findByEmail(loginUsuarioDto.correo);
+    const usuario: Usuario = await this.usuarioService.findByEmail(loginUsuarioDto.correo);
   
     if (!usuario) {
       throw new NotFoundException(`Usuario con correo ${loginUsuarioDto.correo} no encontrado`);
