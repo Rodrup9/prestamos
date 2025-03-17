@@ -22,6 +22,7 @@ export class UsuarioController {
   }
 
   @Get('obtener/:id')
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.usuarioService.findOne(+id);
   }
