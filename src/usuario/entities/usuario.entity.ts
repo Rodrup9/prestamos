@@ -26,7 +26,7 @@ export class Usuario {
     // @ManyToOne(() => Usuario, (usuario) => usuario.clientes_asignados)
     // usuario_creador: Usuario;
 
-    @CreateDateColumn({ type: 'datetime2', nullable: true })
+    @CreateDateColumn({ type: 'datetime', nullable: true })
     creado: Date;
 
     @ManyToMany(() => Rol, (rol) => rol.usuarios)
@@ -35,6 +35,6 @@ export class Usuario {
     @Column({ type: 'bit', default: 1 })
     activo: boolean;
 
-    @UpdateDateColumn({ type: 'datetime2' })
+    @UpdateDateColumn({ type: 'datetime' })
     actualizado: Date;
 }

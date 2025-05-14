@@ -19,13 +19,13 @@ export class Permiso {
       // @ManyToOne(() => Usuario, (usuario) => usuario.id)
       // usuario_creador: Usuario;
     
-      @CreateDateColumn({ type: 'datetime2', nullable: true })
+      @CreateDateColumn({ type: 'datetime', nullable: true })
       creado: Date;
     
       @Column({ type: 'bit', default: 1 })
       activo: boolean;
     
-      @UpdateDateColumn({ type: 'datetime2' })
+      @UpdateDateColumn({ type: 'datetime' })
       actualizado: Date;
 
 }
