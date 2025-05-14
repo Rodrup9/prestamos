@@ -27,7 +27,7 @@ export class MunicipioService {
     const nuevoMunicipio = this.municipioRepository.create({
       ...createMunicipioDto,
       estado,
-      usuario_creador: usuarioCreador,
+      // usuario_creador: usuarioCreador,
     });
   
     return this.municipioRepository.save(nuevoMunicipio);

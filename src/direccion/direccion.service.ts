@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDireccionDto } from './dto/create-direccion.dto';
 import { UpdateDireccionDto } from './dto/update-direccion.dto';
 import { Direccion } from './entities/direccion.entity';
@@ -22,7 +22,7 @@ export class DireccionService {
 
     const nuevaDireccion = this.direccionRepository.create({
       ...createDireccionDto,
-      usuario_creador: usuarioCreador,
+      // usuario_creador: usuarioCreador,
       localidad,
     });
 
@@ -33,20 +33,33 @@ export class DireccionService {
     return this.direccionRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} direccion`;
+  async findOne(id: number) {
+    return await this.direccionRepository.findOne({
+      where: { id },
+      relations: {
+        localidad: true,
+      }
+    });
   }
 
-  async updateCascade(direccionOld: Direccion, updateDireccionDto: UpdateDireccionDto) {
-    const localidad = await this.localidadService.findOne(updateDireccionDto.localidad);
+  async updateCascade(direccionOld: Direccion, updateDireccionDto: UpdateDireccionDto): Promise<Direccion> {
     
-    const direccionActualizada = await this.direccionRepository.save({
-      ...direccionOld,
+    const direccion: Direccion = await this.findOne(direccionOld.id);
+
+    let localidad: Localidad = direccion.localidad;
+    if (updateDireccionDto?.localidad)   
+        localidad = await this.localidadService.findOne(updateDireccionDto.localidad);
+
+    const direccionUpdate: Direccion = {
+      ...direccion,
       ...updateDireccionDto,
       localidad
-    });
+    };
 
-    return direccionActualizada;
+    if (!direccionUpdate?.localidad || !direccionUpdate?.calle || !direccionUpdate?.codigo_postal || !direccionUpdate?.numero_exterior )
+      throw new NotFoundException('Faltan datos en Direccion, localidad, calle, codigo postal, numero_exterior');
+
+    return await this.direccionRepository.save(direccionUpdate);
   }
 
   remove(id: number) {

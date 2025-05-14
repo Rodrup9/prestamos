@@ -12,11 +12,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private usuarioService: UsuarioService,
   ) {    
     super({
-      jwtFromRequest: ExtractJwt.fromExtractors([(request: Request) => {
-        console.log(request.cookies);
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      /*jwtFromRequest: ExtractJwt.fromExtractors([(request: Request) => {
+        // console.log(request.cookies);
         
-        return request?.cookies?.access_token;
-      }]),    
+        // return request?.cookies?.access_token;
+        // return request?.body?.access_token;
+      }]),   */ 
       ignoreExpiration: false,
       secretOrKey: process.env.TOKEN_JWT_SECRET,
     });

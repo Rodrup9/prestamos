@@ -15,15 +15,22 @@ export class UsuarioController {
     return this.usuarioService.create(createUsuarioDto, req.user.id);
   }
 
-  @Get('Admin')
+  @Get('obtener-listado')
   @UseGuards(JwtAuthGuard)
   findAll() {
     return this.usuarioService.findAll();
   }
 
-  @Get(':id')
+  @Get('obtener/:id')
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.usuarioService.findOne(+id);
+  }
+
+  @Post('actualizar/:id')
+  @UseGuards(JwtAuthGuard)
+  update(@Param('id') id:string, @Body() updateUsuarioDto: UpdateUsuarioDto, @Request() req) {
+    return this.usuarioService.update(+id, updateUsuarioDto, req.user.id);
   }
 
 }

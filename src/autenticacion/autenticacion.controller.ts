@@ -12,14 +12,14 @@ export class AutenticacionController {
   @Post('login')
   async login(@Body() loginUsuarioDto: LoginUsuarioDto, @Res() res: Response) {
     const usuario = await this.autenticacionService.login(loginUsuarioDto);    
-    res.cookie('access_token', usuario.access_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 1000,
-    });
+    // res.cookie('access_token', usuario.access_token, {
+    //   httpOnly: true,
+    //   secure: true/*process.env.NODE_ENV === 'production'*/,
+    //   sameSite: 'none',
+    //   maxAge: 60 * 60 * 1000,
+    // });
 
-    return res.json({ message: 'Autenticado con éxito', usuario: usuario.usuario });
+    return res.json({ message: 'Autenticado con éxito', usuario: usuario.usuario, access_token: usuario.access_token });
 
   }
 

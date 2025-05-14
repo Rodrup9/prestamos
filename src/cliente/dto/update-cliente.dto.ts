@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateClienteDto } from './create-cliente.dto';
-import { IsDate, IsIn, IsInt, IsOptional, IsPositive, IsString, Min, ValidateNested } from 'class-validator';
+import { IsDate, IsIn, IsInt, IsOptional, IsPositive, IsString, MinLength, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { UpdateDireccionDto } from 'src/direccion/dto/update-direccion.dto';
 
@@ -8,21 +8,21 @@ export class UpdateClienteDto extends PartialType(CreateClienteDto) {
 
     @IsOptional()
     @IsString()
-    @Min(3)
-    nombre: string;
+    @MinLength(3)
+    nombre?: string;
 
     @IsString()
-    @Min(3)
-    apellido_paterno: string;
+    @MinLength(3)
+    apellido_paterno?: string;
 
     @IsOptional()
     @IsString()
-    @Min(3)
+    @MinLength(3)
     apellido_materno?: string;
 
     @IsOptional()
     @IsString()
-    @Min(7)
+    @MinLength(7)
     rfc?: string;
 
     @IsOptional()
@@ -35,7 +35,7 @@ export class UpdateClienteDto extends PartialType(CreateClienteDto) {
 
     @IsOptional()
     @IsString()
-    @Min(13)
+    @MinLength(13)
     curp?: string;
 
     @IsOptional()
@@ -45,10 +45,8 @@ export class UpdateClienteDto extends PartialType(CreateClienteDto) {
     @IsOptional()
     @IsInt()
     @IsPositive()
-    usuario_asignado: number;
+    usuario_asignado?: number;
 
-    @IsOptional()
-    @ValidateNested()
-    @Type(() => UpdateDireccionDto)
-    direccion?: UpdateDireccionDto;
+    // @IsOptional()
+    // direccion?: UpdateDireccionDto;
 }

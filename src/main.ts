@@ -7,9 +7,9 @@ async function bootstrap() {
   app.use(cookieParser());
   app.enableCors({
     origin: 'http://localhost:5173',
-    credentials: true, // ✅ Necesario si usas cookies
-    methods: 'GET,POST', // Métodos permitidos
-    allowedHeaders: 'Content-Type, Authorization', // Headers permitidos
+    credentials: true,
+    methods: 'GET,POST,OPTIONS',
+    allowedHeaders: 'Content-Type, Authorization',
   });
   await app.listen(process.env.PORT ?? 3000);
 }

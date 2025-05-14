@@ -27,7 +27,7 @@ export class LocalidadService {
 
     const nuevaLocalidad = this.localidadRepository.create({
       ...createLocalidadDto,
-      usuario_creador: usuarioCreador,
+      // usuario_creador: usuarioCreador,
       municipio: municipio
     })
 
