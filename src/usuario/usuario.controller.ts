@@ -10,7 +10,6 @@ export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
   @Post('Crear')
-  @UseGuards(JwtAuthGuard)
   create(@Body() createUsuarioDto: CreateUsuarioDto, @Request() req) {
     return this.usuarioService.create(createUsuarioDto, req.user.id);
   }
