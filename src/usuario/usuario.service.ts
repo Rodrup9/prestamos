@@ -19,15 +19,15 @@ constructor(
   private rolService: RolService,
 ) {}
 
-async create(createUsuarioDto: CreateUsuarioDto, idUsuarioCreador: number) {
+async create(createUsuarioDto: CreateUsuarioDto, idUsuarioCreador: number = 0) {
   const salt: string = await bcrypt.genSalt(+process.env.SALT);
   const hashedPassword: string = await bcrypt.hash(createUsuarioDto.clave, salt);
 
   let usuarioCreador: Usuario | null = null;
 
-  if (idUsuarioCreador) {
+  /*if (idUsuarioCreador) {
     usuarioCreador = await this.findOne(idUsuarioCreador);
-  }
+  }*/
 
   let roles: Rol[] = [];
   if (createUsuarioDto.roles && createUsuarioDto.roles.length > 0) {
