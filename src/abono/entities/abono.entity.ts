@@ -27,7 +27,7 @@ export class Abono {
         @ManyToOne(() => MetodoPago, (metodoPago) => metodoPago.abonos)
         metodo_pago: MetodoPago;
     
-        @Column({ type: 'bit', default: 1 })
+        @Column({ type: 'boolean', default: 1 })
         activo: boolean;
     
         @UpdateDateColumn({ type: 'datetime' })

@@ -32,7 +32,7 @@ export class Usuario {
     @ManyToMany(() => Rol, (rol) => rol.usuarios)
     roles: Rol[]
 
-    @Column({ type: 'bit', default: 1 })
+    @Column({ type: 'boolean', default: 1 })
     activo: boolean;
 
     @UpdateDateColumn({ type: 'datetime' })

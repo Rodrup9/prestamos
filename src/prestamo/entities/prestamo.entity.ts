@@ -45,7 +45,7 @@ export class Prestamo {
     @CreateDateColumn({ type: 'datetime', nullable: true })
     creado: Date;
 
-    @Column({ type: 'bit', default: 1 })
+    @Column({ type: 'boolean', default: 1 })
     activo: boolean;
 
     @UpdateDateColumn({ type: 'datetime' })
