@@ -54,9 +54,6 @@ async findByEmail(email: string): Promise<Usuario> {
     where: { correo: email },
   });
 
-  if (!usuario)
-    throw new NotFoundException(`Usuario con email ${email} no encontrado`);
-
   return usuario;
 }
 
