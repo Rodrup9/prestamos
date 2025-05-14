@@ -7,7 +7,7 @@ export const databaseProviders = [
     provide: 'DATA_SOURCE',
     useFactory: async () => {
       const dataSource = new DataSource({
-        type: 'mssql',
+        type: 'mysql',
         host: process.env.HOST_DB,
         port: +process.env.PORT_DB,
         username: process.env.USERNAME_DB,
@@ -17,10 +17,10 @@ export const databaseProviders = [
             __dirname + '/../**/*.entity{.ts,.js}',
         ],
         synchronize: true,
-        options: {
+        /*options: {
             encrypt: false,
             trustServerCertificate: true,
-          },
+          },*/
       });
 
       return dataSource.initialize();
