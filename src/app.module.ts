@@ -14,7 +14,21 @@ import { AbonoModule } from './abono/abono.module';
 import { MetodoPagoModule } from './metodo_pago/metodo_pago.module';
 
 @Module({
-  imports: [UsuarioModule, RolModule, AutenticacionModule, ClienteModule, DireccionModule, EstadoModule, MunicipioModule, LocalidadModule, CommonModule, PermisoModule, PrestamoModule, AbonoModule, MetodoPagoModule],
+  imports: [
+    UsuarioModule,
+    RolModule,
+    AutenticacionModule,
+    ClienteModule,
+    DireccionModule,
+    EstadoModule,
+    MunicipioModule,
+    LocalidadModule,
+    CommonModule,
+    PermisoModule,
+    PrestamoModule,
+    AbonoModule,
+    MetodoPagoModule,
+  ],
   controllers: [],
   providers: [],
   exports: [],
